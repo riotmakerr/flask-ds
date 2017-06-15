@@ -3,11 +3,12 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import log_loss
 from sklearn import preprocessing
 from sklearn.cross_validation import train_test_split
+from creds import RAW_DATA_S3_LINK
 
 import pandas as pd
 
 def compute(test_row):
-    df = pd.read_csv("https://s3.us-east-2.amazonaws.com/elasticbeanstalk-us-east-2-526078643552/question5_data.csv")
+    df = pd.read_csv(RAW_DATA_S3_LINK)
 
     # First we'll do department...
     lb = preprocessing.LabelBinarizer()
