@@ -18,14 +18,10 @@ def index():
     form2 = RetrieveDBInfo(request.form)
 
     if request.method == 'POST' and form1.validate():
-        # this employee has 100% chance of leaving
-        if form1.dbNotes.data == 'joe':
-            test_row = [0.99, 0.53, 2, 157, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-        else:
-            # this employee has 10% chance of leaving
-            test_row = [0.38, 0.53, 2, 157, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+        test_row = [float(form1.dbNotes.data), 0.53, 2, 157, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+            # test_row = [0.38, 0.53, 2, 157, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
 
-        chosen_one = results(str(form1.dbNotes.data), float(compute(test_row)))
+        chosen_one = results('joe', float(compute(test_row)))
         result = [chosen_one]
         #db.session.add(chosen_one)
         #db.session.commit()

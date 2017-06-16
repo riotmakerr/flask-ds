@@ -14,7 +14,7 @@
   <form method="post" action="/index"  id="db_post" name="db_post">
 
       {{ form1.hidden_tag() }}
-      <label>Compares any current employee against attrition data to see how likely they are to leave</label>
+      <label>Enter a satisfaction level for Joe to see how it affects his chance of leaving the company (0.01 to .99)</label>
       <div style="max-width:400px;">
         {{ macros.render_field(form1.dbNotes, placeholder='Enter Employee Name', type='dbNotes', label_visible=false) }}
       <!-- <div align="center"> -->
@@ -24,15 +24,12 @@
 
   </form>
   joe has:
-  employee_satisfaction_level of 0.99
-  last_evaluation_score	of 0.53
-  number_projects_performed	of 2
-  average_monthly_hours_worked of 157
-  Tenure (years) of 3
-  No Work_accidents
-  No promotion_in_last_5years
-
-  Type in joe to see his chance of leaving the company
+  last_evaluation_score	of 0.53 <br>
+  number_projects_performed	of 2 <br>
+  average_monthly_hours_worked of 157 <br>
+  Tenure (years) of 3 <br>
+  No Work_accidents <br>
+  No promotion_in_last_5years <br>
   <br>
   <hr>
 
