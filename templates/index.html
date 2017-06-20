@@ -1,5 +1,10 @@
 {% extends "base.html" %} {% import 'macros.html' as macros %}
 {% block content %}
+<script>
+function outputUpdate(name, value) {
+    document.querySelector('#selected-' + name).value = value;
+}
+</script>
 
 <div class="container">
 
@@ -16,7 +21,30 @@
       {{ form1.hidden_tag() }}
       <label>Compares any current employee against attrition data to see how likely they are to leave</label>
       <div style="max-width:400px;">
-        {{ macros.render_field(form1.dbNotes, placeholder='Enter Employee Name', type='dbNotes', label_visible=false) }}
+        <br>
+        {{ macros.render_field(form1.employee_name, placeholder='Enter Employee Name', type='employee_name', label_visible=true) }}
+
+        {{ form1.s_level.label }}:
+        {{ form1.s_level(min=0, max=1, step='.01', id='s-level', oninput="outputUpdate(id, value)") }}
+        <output for="s-level" id="selected-s-level">{{ form1.s_level.data }}</output>
+        <br>
+        {{ form1.eval_score.label }}:
+        {{ form1.eval_score(min=0, max=1, step='.01', id='eval-score', oninput="outputUpdate(id, value)") }}
+        <output for="eval-score" id="selected-eval-score">{{ form1.eval_score.data }}</output>
+        <br>
+
+        {{ macros.render_field(form1.number_projects_performed, type='number_projects_performed', label_visible=true) }}
+        {{ macros.render_field(form1.average_monthly_hours_worked, type='average_monthly_hours_worked', label_visible=true) }}
+        {{ macros.render_field(form1.tenure, type='tenure', label_visible=true) }}
+        {{ macros.render_checkbox_field(form1.work_accident) }}
+        {{ macros.render_checkbox_field(form1.promotion_in_last_5years) }}
+
+        {{ form1.salary.label }}:
+        {{ form1.salary }}
+
+        {{ form1.department.label }}:
+        {{ form1.department }}
+        <br>
       <!-- <div align="center"> -->
         <button type="submit" class="btn btn-primary">Submit</button></p>
       <!-- </div> -->
@@ -29,7 +57,6 @@
 
   <form method="post" action="/index"  id="db_post" name="db_view">
 
-      {{ form2.hidden_tag() }}
       <label>See the top ten employees with the highest risk of leaving</label>
         <div style="max-width:400px;">
       <!-- <div align="center"> -->
