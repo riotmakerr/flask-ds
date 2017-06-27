@@ -17,6 +17,12 @@
         {% if field.type == 'TextField' %}
             {{ field(class_='form-control', **kwargs) }}
         {% endif %}
+        {% if field.type == 'IntegerField' %}
+            {{ field(class_='form-control', **kwargs) }}
+        {% endif %}
+        {% if field.type == 'DecimalField' %}
+            {{ field(class_='form-control', **kwargs) }}
+        {% endif %}
         {% if field.errors %}
             {% for e in field.errors %}
                 <p class="help-block">{{ e }}</p>

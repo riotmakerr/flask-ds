@@ -1,6 +1,12 @@
 {% extends "base.html" %} {% import 'macros.html' as macros %}
 {% block content %}
 
+<script>
+function outputUpdate(name, value) {
+    document.querySelector('#selected-' + name).value = value;
+}
+</script>
+
 <div class="container">
 
 <div class="col-lg-10 col-lg-offset-1">
@@ -13,37 +19,41 @@
 
   <form method="post" action="/index"  id="db_post" name="db_post">
 
-      {{ form1.hidden_tag() }}
-      <label>Enter a satisfaction level for Joe to see how it affects his chance of leaving the company (0.01 to .99)</label>
-      <div style="max-width:400px;">
-        {{ macros.render_field(form1.dbNotes, placeholder='Enter Employee Name', type='dbNotes', label_visible=false) }}
-      <!-- <div align="center"> -->
-        <button type="submit" class="btn btn-primary">Submit</button></p>
-      <!-- </div> -->
-    </div>
-
-  </form>
-  joe has:
-  last_evaluation_score	of 0.53 <br>
-  number_projects_performed	of 2 <br>
-  average_monthly_hours_worked of 157 <br>
-  Tenure (years) of 3 <br>
-  No Work_accidents <br>
-  No promotion_in_last_5years <br>
-  <br>
-  <hr>
-
-  <form method="post" action="/index"  id="db_post" name="db_view">
-
-      {{ form2.hidden_tag() }}
-      <label>See the top ten employees with the highest risk of leaving</label>
+        {{ form1.hidden_tag() }}
+        <label>Compares any current employee against attrition data to see how likely they are to leave</label>
         <div style="max-width:400px;">
-      <!-- <div align="center"> -->
-        <button type="submit" class="btn btn-primary">Retrieve</button></p>
-      <!-- </div> -->
-    </div>
+          <br>
+          {{ macros.render_field(form1.employee_name, placeholder='Enter Employee Name', type='employee_name', label_visible=true) }}
 
-  </form>
+          {{ form1.s_level.label }}:
+          {{ form1.s_level(min=0, max=1, step='.01', id='s-level', oninput="outputUpdate(id, value)") }}
+          <output for="s-level" id="selected-s-level">{{ form1.s_level.data }}</output>
+          <br>
+          {{ form1.eval_score.label }}:
+          {{ form1.eval_score(min=0, max=1, step='.01', id='eval-score', oninput="outputUpdate(id, value)") }}
+          <output for="eval-score" id="selected-eval-score">{{ form1.eval_score.data }}</output>
+          <br>
+
+          {{ macros.render_field(form1.number_projects_performed, type='number_projects_performed', label_visible=true) }}
+          {{ macros.render_field(form1.average_monthly_hours_worked, type='average_monthly_hours_worked', label_visible=true) }}
+          {{ macros.render_field(form1.tenure, type='tenure', label_visible=true) }}
+          {{ macros.render_checkbox_field(form1.work_accident) }}
+          {{ macros.render_checkbox_field(form1.promotion_in_last_5years) }}
+          <br>
+          {{ form1.salary.label }}:
+          {{ form1.salary }}
+          <br>
+          <br>
+          {{ form1.department.label }}:
+          {{ form1.department }}
+          <br>
+          <br>
+        <!-- <div align="center"> -->
+          <button type="submit" class="btn btn-primary">Submit</button></p>
+        <!-- </div> -->
+      </div>
+
+    </form>
 
   <br>
   <hr>
